@@ -4,16 +4,16 @@
 # https://projecteuler.net/problem=67
 #
 
-data = File.read(ARGV[0]).split("\n").map{|e| e.split(" ").map{|ee| ee.to_i }}
-cost = data.clone
+a = File.read(ARGV[0]).split("\n").map{|e| e.split(" ").map{|ee| ee.to_i }}
+s = a.clone
 
-cost.each_with_index{|line,y|
-  next if y == 0
-  line.each_with_index{|e,x|
-    upper_left  = ( x == 0 ) ? nil : data[y-1][x-1] # 左端の場合、左上が存在しない
-    upper_right = ( x == y ) ? nil : data[y-1][x]   # 右端の場合、右上が存在しない
-    cost[y][x]  = e + [ upper_left, upper_right ].compact.max
+s.length.times{|i|
+  next if i == 0
+  s[i].length.times{|j|
+    upper_left  = ( j == 0 ) ? nil : a[i-1][j-1] # 左端の場合、左上が存在しない
+    upper_right = ( j == i ) ? nil : a[i-1][j]   # 右端の場合、右上が存在しない
+    s[i][j] = a[i][j] + [ upper_left, upper_right ].compact.max
   }
 }
 
-p cost[-1].max # 最終段の最大値
+p s[-1].max # 最終段の最大値
